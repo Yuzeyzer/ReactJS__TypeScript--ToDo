@@ -1,8 +1,11 @@
 import React, { Fragment, useState } from 'react';
+import { FormElem } from './types';
+import { ITodo } from './interfaces';
 
 const App = (): JSX.Element => {
   const [value, setValue] = useState<string>('');
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [todos, setTodos] = useState<ITodo[]>([]);
+  const handleSubmit = (e: FormElem): void => {
     e.preventDefault();
     setValue('e');
   };

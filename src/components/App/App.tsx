@@ -10,9 +10,15 @@ const App = (): JSX.Element => {
     addTodo(value);
     setValue('');
   };
-  const addTodo = (text: string) => {
+  const addTodo = (text: string): void => {
     const newTodo: ITodo[] = [...todos, { text, complete: false }];
     setTodos(newTodo);
+  };
+
+  const completeTodo = (index: number): void => {
+    const newTodos: ITodo[] = [...todos];
+    newTodos[index].complete = !newTodos[index].complete;
+    setTodos(newTodos);
   };
 
   return (
@@ -24,7 +30,12 @@ const App = (): JSX.Element => {
       </form>
       <ul>
         {todos.map((todo: ITodo, index: number) => (
-          <li key={index}>{todo.text}</li>
+          <Fragment>
+            <li key={index}>{todo.text}</li>
+            <button type='button' onClick={() => completeTodo(index)}>
+              {todo.complete ? 'Incomplete' : 'Complete'}
+            </button>
+          </Fragment>
         ))}
       </ul>
     </Fragment>

@@ -7,15 +7,26 @@ const App = (): JSX.Element => {
   const [todos, setTodos] = useState<ITodo[]>([]);
   const handleSubmit = (e: FormElem): void => {
     e.preventDefault();
-    setValue('e');
+    addTodo(value);
+    setValue('');
   };
+  const addTodo = (text: string) => {
+    const newTodo: ITodo[] = [...todos, { text, complete: false }];
+    setTodos(newTodo);
+  };
+
   return (
     <Fragment>
       <h1>Todo List</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input type='text' value={value} onChange={(e) => setValue(e.target.value)} required />
         <button type='submit'>Add Todo</button>
       </form>
+      <ul>
+        {todos.map((todo: ITodo, index: number) => (
+          <li key={index}>{todo.text}</li>
+        ))}
+      </ul>
     </Fragment>
   );
 };
